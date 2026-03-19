@@ -4,7 +4,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/guodongq/uap/tools/env"
+	"github.com/guodongq/uap/tools/sys/env"
 	"github.com/sirupsen/logrus"
 )
 

@@ -1,4 +1,4 @@
-package gotask
+package pool
 
 import (
 	"context"

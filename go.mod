@@ -3,12 +3,14 @@ module github.com/guodongq/uap
 go 1.26.1
 
 require (
+	github.com/fsnotify/fsnotify v1.9.0
 	github.com/google/uuid v1.6.0
 	github.com/sirupsen/logrus v1.9.4
 	github.com/stretchr/testify v1.11.1
 	go.mongodb.org/mongo-driver/v2 v2.5.0
 	go.uber.org/fx v1.24.0
 	go.uber.org/zap v1.27.1
+	golang.org/x/exp v0.0.0-20260312153236-7ab1446f8b90
 	google.golang.org/grpc v1.79.3
 )
 

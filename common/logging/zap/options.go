@@ -3,7 +3,7 @@ package zap
 import (
 	"os"
 
-	"github.com/guodongq/uap/tools/env"
+	"github.com/guodongq/uap/tools/sys/env"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )

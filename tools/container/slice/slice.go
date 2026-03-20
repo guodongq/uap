@@ -10,7 +10,7 @@ import (
 	"sync"
 	"time"
 
-	random "github.com/guodongq/uap/tools/lang/rand"
+	random "github.com/guodongq/uap/tools/lang/randx"
 	"golang.org/x/exp/constraints"
 )
 

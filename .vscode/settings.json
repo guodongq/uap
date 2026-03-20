@@ -1,0 +1,59 @@
+{
+  // Go 扩展核心设置
+  "go.useLanguageServer": true,
+  "go.lintTool": "golangci-lint",
+  "go.lintFlags": ["--fast"],
+  "go.lintOnSave": "package",
+  "go.vetOnSave": "package",
+  "go.buildOnSave": "package",
+  "go.testTimeout": "30s",
+  "go.coverOnSave": false,
+  "go.coverageDecorator": {
+    "type": "highlight",
+    "coveredHighlightColor": "rgba(64,128,64,0.2)",
+    "uncoveredHighlightColor": "rgba(128,64,64,0.2)"
+  },
+  "go.testFlags": ["-v", "-count=1"],
+  "go.testEnvVars": {},
+
+  // gopls 语言服务器设置
+  "gopls": {
+    "ui.semanticTokens": true,
+    "ui.completion.usePlaceholders": true,
+    "ui.diagnostic.analyses": {
+      "fieldalignment": false,
+      "shadow": true,
+      "unusedparams": true,
+      "unusedwrite": true,
+      "nilness": true
+    },
+    "formatting.gofumpt": true
+  },
+
+  // 编辑器格式化
+  "[go]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "golang.go",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    },
+    "editor.insertSpaces": false,
+    "editor.tabSize": 4
+  },
+  "[go.mod]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "golang.go"
+  },
+
+  // 文件排除（隐藏无关文件）
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/*.test": true
+  },
+  "search.exclude": {
+    "go.sum": true
+  },
+
+  // 终端设置
+  "terminal.integrated.cwd": "${workspaceFolder}"
+}

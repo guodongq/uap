@@ -613,7 +613,6 @@ func convertMap(src reflect.Value, dst reflect.Value) error {
 				k = dstType.Field(i).Name
 			} else {
 				k = taglist[0]
-
 			}
 
 		}

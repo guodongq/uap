@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	log "github.com/guodongq/uap/common/logging"
+	"github.com/guodongq/uap/log"
 )
 
 var HandlePanic = func(recovered any, funcName string) {

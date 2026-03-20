@@ -7,6 +7,7 @@ package maps
 import (
 	"fmt"
 	"sync"
+	"unsafe"
 )
 
 const defaultShardCount = 32
@@ -140,17 +141,68 @@ func (cm *ConcurrentMap[K, V]) Range(iterator func(key K, value V) bool) {
 
 // getShard get shard by a key.
 func (cm *ConcurrentMap[K, V]) getShard(key K) uint64 {
-	hash := fnv32(fmt.Sprintf("%v", key))
-	return uint64(hash) % cm.shardCount
+	hash := hashKey(key)
+	return hash % cm.shardCount
 }
 
-func fnv32(key string) uint32 {
-	hash := uint32(2166136261)
-	const prime32 = uint32(16777619)
-	keyLength := len(key)
-	for i := 0; i < keyLength; i++ {
-		hash *= prime32
-		hash ^= uint32(key[i])
+// hashKey computes a hash for the given key, with fast paths for common types
+// to avoid the overhead of fmt.Sprintf.
+func hashKey[K comparable](key K) uint64 {
+	switch k := any(key).(type) {
+	case string:
+		return fnv64String(k)
+	case int:
+		return fnv64Uint64(uint64(k))
+	case int8:
+		return fnv64Uint64(uint64(k))
+	case int16:
+		return fnv64Uint64(uint64(k))
+	case int32:
+		return fnv64Uint64(uint64(k))
+	case int64:
+		return fnv64Uint64(uint64(k))
+	case uint:
+		return fnv64Uint64(uint64(k))
+	case uint8:
+		return fnv64Uint64(uint64(k))
+	case uint16:
+		return fnv64Uint64(uint64(k))
+	case uint32:
+		return fnv64Uint64(uint64(k))
+	case uint64:
+		return fnv64Uint64(k)
+	case uintptr:
+		return fnv64Uint64(uint64(k))
+	default:
+		return fnv64String(fmt.Sprintf("%v", key))
+	}
+}
+
+const (
+	fnvOffset64 = uint64(14695981039346656037)
+	fnvPrime64  = uint64(1099511628211)
+)
+
+func fnv64String(key string) uint64 {
+	hash := fnvOffset64
+	ptr := unsafe.StringData(key)
+	for i := 0; i < len(key); i++ {
+		hash ^= uint64(*ptr)
+		hash *= fnvPrime64
+		ptr = (*byte)(unsafe.Add(unsafe.Pointer(ptr), 1))
+	}
+	return hash
+}
+
+func fnv64Uint64(val uint64) uint64 {
+	b := [8]byte{
+		byte(val), byte(val >> 8), byte(val >> 16), byte(val >> 24),
+		byte(val >> 32), byte(val >> 40), byte(val >> 48), byte(val >> 56),
+	}
+	hash := fnvOffset64
+	for _, c := range b {
+		hash ^= uint64(c)
+		hash *= fnvPrime64
 	}
 	return hash
 }

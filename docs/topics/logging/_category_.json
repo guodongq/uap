@@ -1,0 +1,8 @@
+{
+  "label": "Logging",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "Structured logging abstraction with pluggable backends."
+  }
+}

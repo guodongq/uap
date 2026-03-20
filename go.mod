@@ -14,8 +14,11 @@ require (
 	google.golang.org/grpc v1.79.3
 )
 
+require github.com/google/go-querystring v1.2.0 // indirect
+
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/google/go-github v17.0.0+incompatible
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	go.uber.org/dig v1.19.0 // indirect
 	go.uber.org/multierr v1.10.0 // indirect

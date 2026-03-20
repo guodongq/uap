@@ -1,0 +1,8 @@
+{
+  "label": "Errors",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Unified error handling with gRPC and HTTP status mapping."
+  }
+}
